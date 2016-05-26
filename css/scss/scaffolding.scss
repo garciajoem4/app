@@ -1,0 +1,30 @@
+//
+// Scaffolding
+// --------------------------------------------------
+
+// Page Container
+.container-fixed {
+  width: 100%;
+  max-width: $container-fixed;
+  margin: 0 auto;
+  position: relative;
+}
+
+// Compontents
+.block-default {
+  float: none;
+
+  @media(min-width: $screen-lg) {
+    float: none;
+  }
+}
+
+.block {
+  display: block;
+  margin: 5px 0;
+}
+
+.block-submit {
+  margin: 10px 0;
+  padding: 5px 0;
+}

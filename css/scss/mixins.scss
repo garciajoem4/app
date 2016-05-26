@@ -1,0 +1,129 @@
+//
+// Mixins
+// --------------------------------------------------
+
+// Flex box
+//
+//
+@mixin flexbox() {
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
+  display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+@mixin flexbox-inline() {
+  display: -webkit-inline-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-inline-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-inline-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-inline-flex;     /* NEW - Chrome */
+  display: inline-flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+// Transitions
+//
+//
+@mixin transition($arg) {
+  -webkit-transition: $arg;
+     -moz-transition: $arg;
+       -o-transition: $arg;
+      -ms-transition: $arg;
+          transition: $arg;
+}
+
+
+// Main containers
+//
+//
+//## Set the gutter (spacing) between columns in a row
+@mixin colholder-gutter-width($gutter-width){
+	@padding-width: ($gutter-width * 0.5);
+	margin-left: ($gutter-width * -1);
+	margin-right: ($gutter-width * -1);
+
+	> .col_threequarters {
+		padding-left: $gutter-width;
+		padding-right: $gutter-width;
+	}
+}
+
+//## Set the colholder width
+@mixin container-width-multiple($factor){
+	> .colholder {
+		// We actually don't want to let them change the small breakpoint
+		// @media (min-width: $screen-sm-min) {
+		//   width: $container-sm * @factor;
+		// }
+		@media (min-width: $screen-md-min) {
+		// @media (min-width: ($screen-md-min * $factor)) {
+			$width: min($screen-md-max, ($container-md * $factor)) ;
+			// width: $width;
+			max-width: $width !important;
+		}
+		@media (min-width: $screen-lg-min) {
+		// @media (min-width: ($screen-lg-min * $factor)) {
+			$width: ($container-lg * $factor);
+			// width: $width;
+			max-width: $width !important;
+		}
+	}
+
+	// .force-container-lg & > .blob-container,
+	// .force-container-horizontal & > .blob-container {
+	// 	min-width: (@container-lg * @factor);
+	// }
+}
+
+@mixin smooth-fonts() {
+	-webkit-font-smoothing: antialiased;
+}
+
+// Specify widths of the wf-container class
+// lg, md, small
+@mixin container-widths-fixed($width-lg: $container-lg, $width-md: $container-md, $width-sm: $container-sm){
+  .colholder {
+  	@media (min-width: $screen-sm-min) {
+  		max-width: min($width-sm, $screen-sm);
+  	}
+  	@media (min-width: $screen-md-min) {
+  		max-width: min($width-md, $screen-md);
+  	}
+  	@media (min-width: $screen-lg-min) {
+  		max-width: min($width-lg, $screen-lg);
+  	}
+  }
+}
+
+@mixin container-widths-fluid($width-lg: $container-lg, $width-md: $container-md, $width-sm: $container-sm){
+  .colholder {
+  	@media (min-width: $screen-sm-min) {
+  		max-width: min($width-sm, $screen-sm);
+  	}
+  	@media (min-width: $screen-md-min) {
+  		max-width: min($width-md, $screen-md);
+  	}
+  	@media (min-width: $screen-lg-min) {
+  		max-width: min($width-lg, $screen-lg);
+  	}
+  }
+}
+
+@mixin editable-highlight($bg-color, $border-color){
+	.editable-background {
+		background-color: $bg-color;
+		border-color: $border-color;
+	}
+}
+
+@mixin fill-container($top: 0, $right: $top, $bottom: $top, $left: $right){
+	position: absolute;
+	@include position-directions($top, $right, $bottom, $left);
+}
+
+@mixin position-directions($top: 0, $right: $top, $bottom: $top, $left: $right){
+	top: $top;
+	left: $left;
+	bottom: $bottom;
+	right: $right;
+}
